@@ -8,7 +8,10 @@ exports.up = (knex) =>
     table.increments();
     table.integer("user_id").notNullable();
     table.foreign("user_id").references("id").inTable("users");
+
     table.text("text").notNullable();
+    table.text("image_url").notNullable();
+
     table.timestamps(true, true);
   });
 

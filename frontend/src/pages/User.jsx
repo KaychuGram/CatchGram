@@ -4,7 +4,7 @@ import CurrentUserContext from "../contexts/current-user-context";
 import { getUser } from "../adapters/user-adapter";
 import { logUserOut } from "../adapters/auth-adapter";
 import UpdateUsernameForm from "../components/UpdateUsernameForm";
-import { createPost, getAllPosts, getUserPost } from "../adapters/post-adapter";
+import { createPost, getUserPost } from "../adapters/post-adapter";
 
 export default function UserPage() {
   const navigate = useNavigate();
@@ -14,7 +14,6 @@ export default function UserPage() {
   const { id } = useParams();
   const isCurrentUserProfile = currentUser && currentUser.id === Number(id);
   const [posts, setPosts] = useState([]);
-
 
   useEffect(() => {
     const loadUser = async () => {
@@ -34,10 +33,6 @@ export default function UserPage() {
     loadPost();
   }, [id]);
 
-  // useEffect(() => {
-  //   getAllPosts().then(setPosts);
-  // }, []);
-
   const handleLogout = async () => {
     logUserOut();
     setCurrentUser(null);
@@ -47,9 +42,6 @@ export default function UserPage() {
   if (!userProfile && !errorText) return null;
   if (errorText) return <p>{errorText}</p>;
 
-  // What parts of state would change if we altered our currentUser context?
-  // Ideally, this would update if we mutated it
-  // But we also have to consider that we may NOT be on the current users page
   const profileUsername = isCurrentUserProfile
     ? currentUser.username
     : userProfile.username;
@@ -58,20 +50,22 @@ export default function UserPage() {
     event.preventDefault();
     setErrorText("");
     const formData = new FormData(event.target);
-    const values = Object.fromEntries(formData);
-  
-    // Create the post
-    const [newPost, postError] = await createPost({ user_id: id, text: values.text });
-  
-    if (postError) {
-      setErrorText(postError.message);
+    const val = Object.fromEntries(formData);
+    console.log(val);
+
+    const [post, error] = await createPost({
+      user_id: id,
+      text: val.text,
+      image_url: val.url,
+    });
+
+    if (error) {
+      setErrorText(error.message);
     } else {
-      // Update the posts state to include the new post
-      setPosts((prevPosts) => [...prevPosts, newPost]);
+      setPosts((prevPosts) => [...prevPosts, post]);
       event.target.reset();
     }
   };
-  
 
   return (
     <>
@@ -83,14 +77,27 @@ export default function UserPage() {
       <p>Fake Bio or something</p>
 
       <ul>
-        {posts.map((post) => (
-          <li key={post.id}>{post.text}</li>
+      {posts.map((post) => (
+          <li key={post.id}>
+            <p>{post.username}</p>
+            <p>Created at: {post.created_at}</p>
+            {post.image_url && (
+              <img
+                src={post.image_url}
+                alt={`Post Image for ${post.id}`}
+                style={{ width: '200px', height: '250px', objectFit: 'cover' }}
+              />
+            )}
+            <p>{post.text}</p>
+          </li>
         ))}
       </ul>
 
-
       <form onSubmit={handleSubmit} aria-labelledby="input-text">
-        <h2 id="input-heading">Input text here:</h2>
+        <h2 id="input-heading">Create a new post:</h2>
+
+        <label htmlFor="url">Input URL here:</label>
+        <input type="url" autoComplete="url" id="url" name="url" />
 
         <label htmlFor="text">Type here</label>
         <input type="text" autoComplete="text" id="text" name="text" />
@@ -107,3 +114,4 @@ export default function UserPage() {
     </>
   );
 }
+

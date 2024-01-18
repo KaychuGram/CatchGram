@@ -22,11 +22,11 @@ class Post {
     }
   }
 
-  static async create(user_id, text) {
+  static async create(user_id, text, image_url) {
     try {
-      const query = `INSERT INTO posts (user_id, text)
-      VALUES (?, ?) RETURNING *`;
-      const args = [user_id, text];
+      const query = `INSERT INTO posts (user_id, text, image_url)
+      VALUES (?, ?, ?) RETURNING *`;
+      const args = [user_id, text, image_url];
       const { rows } = await knex.raw(query, args);
       const post = rows[0];
       return post;
