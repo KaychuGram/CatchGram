@@ -84,6 +84,7 @@ export default function SignUpPage() {
               autoFocus
               onChange={handleChange}
               value={username}
+              sx={{ marginBottom: 3 }} 
             />
             <TextField
               autoComplete="off"
