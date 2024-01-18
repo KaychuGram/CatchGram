@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const knex = require('../knex');
 const { hashPassword, isValidPassword } = require('../../utils/auth-utils');
 

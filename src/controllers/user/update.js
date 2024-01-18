@@ -7,7 +7,7 @@ const updateUser = async (req, res) => {
     body: { username }, // this req.body property is put here by the client
     params: { id }, // this req.params.id is a part of the request URL
   } = req;
-
+  
   if (!isAuthorized(id, session)) return res.sendStatus(403);
 
   const user = await User.find(id);
