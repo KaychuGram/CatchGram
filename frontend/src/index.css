@@ -39,12 +39,12 @@ nav a {
   color: #FFF;
 }
 
-form {
+/* form {
   padding: 1rem;
   border: 1px solid #CCC;
   width: 15rem;
   margin: 1rem auto;
-}
+} */
 
 /* automatically added by NavLink component */
 .active {
@@ -52,3 +52,4 @@ form {
   font-weight: bold;
   font-style: italic;
 }
+

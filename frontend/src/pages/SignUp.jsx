@@ -1,22 +1,36 @@
-import { useContext, useState } from "react";
-import { useNavigate, Navigate, Link } from "react-router-dom";
-import CurrentUserContext from "../contexts/current-user-context";
-import { createUser } from "../adapters/user-adapter";
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-// Controlling the sign up form is a good idea because we want to add (eventually)
-// more validation and provide real time feedback to the user about usernames and passwords
+// Import the necessary hooks and components from React
+import { useContext, useState } from 'react';
+import { useNavigate, Navigate, Link as RouterLink } from 'react-router-dom';
+import CurrentUserContext from '../contexts/current-user-context';
+import { createUser } from '../adapters/user-adapter';
+
+// Create a default theme using MUI
+const defaultTheme = createTheme();
+
+// Define the SignUpPage component
 export default function SignUpPage() {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [errorText, setErrorText] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // We could also use a single state variable for the form data:
-  // const [formData, setFormData] = useState({ username: '', password: '' });
-  // What would be the pros and cons of that?
 
-  if (currentUser) return <Navigate to="/" />;
-
+  // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorText('');
@@ -29,44 +43,77 @@ export default function SignUpPage() {
     navigate('/');
   };
 
+  // Handle input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === 'username') setUsername(value);
     if (name === 'password') setPassword(value);
   };
 
-  return <>
-    <h1>Sign Up</h1>
-    <form onSubmit={handleSubmit} onChange={handleChange} aria-labelledby="create-heading">
-      <h2 id="create-heading">Create New User</h2>
-      <label htmlFor="username">Username</label>
-      <input
-        autoComplete="off"
-        type="text"
-        id="username"
-        name="username"
-        onChange={handleChange}
-        value={username}
-      />
+  // If the user is already logged in, navigate to the home page
+  if (currentUser) return <Navigate to="/" />;
 
-      <label htmlFor="password">Password</label>
-      <input
-        autoComplete="off"
-        type="password"
-        id="password"
-        name="password"
-        onChange={handleChange}
-        value={password}
-      />
-
-      {/* In reality, we'd want a LOT more validation on signup, so add more things if you have time
-        <label htmlFor="password-confirm">Password Confirm</label>
-        <input autoComplete="off" type="password" id="password-confirm" name="passwordConfirm" />
-      */}
-
-      <button>Sign Up Now!</button>
-    </form>
-    { !!errorText && <p>{errorText}</p> }
-    <p>Already have an account with us? <Link to="/login">Log in!</Link></p>
-  </>;
+  // Return the styled sign-up form
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign Up
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} onChange={handleChange} sx={{ mt: 3 }}>
+            <TextField
+              autoComplete="off"
+              type="text"
+              id="username"
+              name="username"
+              label="Username"
+              fullWidth
+              required
+              autoFocus
+              onChange={handleChange}
+              value={username}
+            />
+            <TextField
+              autoComplete="off"
+              type="password"
+              id="password"
+              name="password"
+              label="Password"
+              fullWidth
+              required
+              onChange={handleChange}
+              value={password}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up Now!
+            </Button>
+          </Box>
+        </Box>
+        {errorText && <Typography color="error">{errorText}</Typography>}
+        <Typography>
+          Already have an account with us?{' '}
+          <RouterLink to="/login" component={Link} variant="body2">
+            Log in!
+          </RouterLink>
+        </Typography>
+      </Container>
+    </ThemeProvider>
+  );
 }

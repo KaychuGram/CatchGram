@@ -59,11 +59,19 @@ export default function UserPage() {
     setErrorText("");
     const formData = new FormData(event.target);
     const values = Object.fromEntries(formData);
-    console.log(formData);
-    console.log(values);
-    createPost({ user_id: id, text: values.text });
-    event.target.reset();
+  
+    // Create the post
+    const [newPost, postError] = await createPost({ user_id: id, text: values.text });
+  
+    if (postError) {
+      setErrorText(postError.message);
+    } else {
+      // Update the posts state to include the new post
+      setPosts((prevPosts) => [...prevPosts, newPost]);
+      event.target.reset();
+    }
   };
+  
 
   return (
     <>
