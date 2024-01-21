@@ -22,7 +22,7 @@ class Post {
     }
   }
 
-  static async create(user_id, text, image_url) {
+  static async create(user_id, text = "", image_url) {
     try {
       const query = `INSERT INTO posts (user_id, text, image_url)
       VALUES (?, ?, ?) RETURNING *`;
@@ -34,6 +34,9 @@ class Post {
       console.error(error);
       return null;
     }
+  }
+  static async deleteAll() {
+    return knex.raw("TRUNCATE posts RESTART IDENTITY CASCADE;");
   }
 }
 
