@@ -5,12 +5,6 @@ const Post = require('../models/post');
  * @returns { Promise<void> } 
  */
 exports.seed = async (knex) => {
-<<<<<<< HEAD
-  // await Post.deleteAll();
-  await Post.create('1', 'Bloop bloop');
-  await Post.create('1', 'Bloop bloop');
-  await Post.create('1', 'Bloop bloop');
-=======
   await Post.deleteAll();
   await Post.create(
     "1",
@@ -23,10 +17,9 @@ exports.seed = async (knex) => {
     "https://www.mytwintiers.com/wp-content/uploads/sites/89/2022/07/Cat.jpg?w=2560&h=1440&crop=1"
   );
   await Post.create(
-    "1",
+    "3",
     "Bloop bloop",
     "https://blog.wisconsincheeseman.com/wp-content/uploads/sites/10/2022/10/sharp-cheddar-baby-swiss-1-edited-768x697.jpg.webp"
   );
->>>>>>> 48b6f6119c1bd23a1bdb0817297701f81645eb75
 
 };
