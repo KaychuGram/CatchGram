@@ -11,6 +11,7 @@ Router.use(addModelsToRequest);
 Router.get('/posts', postController.list)
 Router.post('/posts', postController.create);
 Router.patch('/posts/:id', checkAuthentication, postController.update);
+Router.delete('/posts/:id', postController.destroy);
 
 Router.get('/posts/:id', postController.listUserPost);
 

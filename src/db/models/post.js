@@ -49,20 +49,25 @@ class Post {
       return null;
     }
   }
+
   static async deleteAll() {
     return knex.raw("TRUNCATE posts RESTART IDENTITY CASCADE;");
   }
-  deletePost = async (post_id) => {
+
+  static async destroy(id) {
     try {
       const query = "DELETE FROM posts WHERE id = ?";
-      const args = [post_id];
+      const args = [id];
       const { rows } = await knex.raw(query, args);
       return rows;
+
     } catch (error) {
       console.error(error);
       return null;
     }
   };
+
+
   updatePost = async (id) => {};
 }
 
