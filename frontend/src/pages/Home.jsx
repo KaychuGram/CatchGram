@@ -28,7 +28,7 @@ export default function HomePage() {
       <h1>Home</h1>
       <p>See what your friends have been up to!</p>
 
-      <ul>
+      <ul id="friends-posts">
         {posts.map((post) => (
           <li key={post.id}>
             <p>{post.username}</p>

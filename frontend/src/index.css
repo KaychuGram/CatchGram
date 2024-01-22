@@ -54,3 +54,18 @@ nav a {
   font-style: italic;
 }
 
+#friends-posts {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 60px;
+}
+#friends-posts li:hover {
+  cursor: pointer;
+}
+#friends-posts li {
+  background-color: rgb(234, 102, 124);
+  text-align: center;
+  border-radius: 15px;
+}
