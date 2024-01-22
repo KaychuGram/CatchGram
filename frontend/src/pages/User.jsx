@@ -66,10 +66,6 @@ export default function UserPage() {
       event.target.reset();
     }
   };
-  const handleDelete = async (post) => {
-    console.log("I am trying to delete this post", post);
-
-  }
 
   return (
     <>
@@ -94,38 +90,43 @@ export default function UserPage() {
             <p>{post.text}</p>
             {!!isCurrentUserProfile && (
               <>
-                <button onClick={() => console.log("edit post", post)}>Edit</button>
-                <button onClick={handleDelete}>
+                <button
+                  onClick={async () => {
+                    console.log("edit post", post.id);
+                    alert("You cannot edit this post at the moment, try again later.")
+                  }}>
+                  Edit
+                </button>
+                <button
+                  onClick={async () => {
+                    console.log("I am trying to delete this post", post.id);
+                  }}>
                   Delete
                 </button>
               </>
             )}
-            
           </li>
         ))}
       </ul>
 
-      
-
       {!!isCurrentUserProfile && (
         <>
-        <form onSubmit={handleSubmit} aria-labelledby="input-text">
-        <h2 id="input-heading">Create a new post:</h2>
+          <form onSubmit={handleSubmit} aria-labelledby="input-text">
+            <h2 id="input-heading">Create a new post:</h2>
 
-        <label htmlFor="url">Image URL:</label>
-        <input type="url" autoComplete="url" id="url" name="url" required/>
+            <label htmlFor="url">Image URL:</label>
+            <input type="url" autoComplete="url" id="url" name="url" required />
 
-        <label htmlFor="text">Caption:</label>
-        <input type="text" autoComplete="text" id="text" name="text" />
+            <label htmlFor="text">Caption:</label>
+            <input type="text" autoComplete="text" id="text" name="text" />
 
-        <button>post</button>
-      </form>
+            <button>post</button>
+          </form>
 
-
-        <UpdateUsernameForm
-          currentUser={currentUser}
-          setCurrentUser={setCurrentUser}
-        />
+          <UpdateUsernameForm
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
+          />
         </>
       )}
     </>

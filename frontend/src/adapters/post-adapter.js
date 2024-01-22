@@ -1,4 +1,4 @@
-import { fetchHandler, getPostOptions, getPatchOptions } from "../utils";
+import { fetchHandler, getPostOptions, getPatchOptions, deleteOptions } from "../utils";
 
 const baseUrl = '/api/posts';
 
@@ -12,3 +12,5 @@ export const getAllPosts = async () => {
 };
 
 export const getUserPost = async (user_id) => fetchHandler(`${baseUrl}/${user_id}`);
+
+export const deletePost = async (id) => fetchHandler(`${baseUrl}/${id}`, deleteOptions);

@@ -1,7 +1,7 @@
 body {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   margin: 0;
-  background-color: rgb(255, 147, 147);
+  background-color: rgb(215, 164, 164);
 }
 
 input, label {
@@ -58,14 +58,14 @@ nav a {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 20px;
   margin-top: 60px;
 }
 .post-container li:hover {
   cursor: pointer;
 }
 .post-container li {
-  background-color: rgb(234, 102, 124);
+  background-color: rgb(240, 114, 135);
   text-align: center;
   border-radius: 15px;
   padding: 20px;
