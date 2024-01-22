@@ -1,6 +1,6 @@
 const { isAuthorized } = require('../../utils/auth-utils');
 
-const delete = async (req, res) => {
+const deletePost = async (req, res) => {
   const {
     db: { Post },
     body: { id },
@@ -11,7 +11,7 @@ const delete = async (req, res) => {
   res.send(posts);
 };
 
-module.exports = delete;
+module.exports = deletePost;
 
 
 
