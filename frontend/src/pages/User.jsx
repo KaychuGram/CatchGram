@@ -79,7 +79,6 @@ export default function UserPage() {
         {posts.map((post) => (
           <li key={post.id}>
             <p>{post.username}</p>
-            <p>Created at: {post.created_at}</p>
             {post.image_url && (
               <img
                 src={post.image_url}
@@ -88,19 +87,27 @@ export default function UserPage() {
               />
             )}
             <p>{post.text}</p>
+            <p style={{ color: "rgb(46, 41, 44)", fontSize: "13px" }}>
+              Created at: {post.created_at.slice(0, 10)}
+            </p>
             {!!isCurrentUserProfile && (
               <>
                 <button
                   onClick={async () => {
                     console.log("edit post", post.id);
-                    alert("You cannot edit this post at the moment, try again later.")
-                  }}>
+                    alert(
+                      "You cannot edit this post at the moment, try again later."
+                    );
+                  }}
+                >
                   Edit
                 </button>
                 <button
                   onClick={async () => {
-                    console.log("I am trying to delete this post", post.id);
-                  }}>
+                    console.log("I am trying to delete this post", post);
+                    alert("You thought this button did something huh😂 Too bad, your post is on the web forever!")
+                  }}
+                >
                   Delete
                 </button>
               </>

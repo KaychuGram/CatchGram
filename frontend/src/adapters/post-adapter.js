@@ -13,4 +13,4 @@ export const getAllPosts = async () => {
 
 export const getUserPost = async (user_id) => fetchHandler(`${baseUrl}/${user_id}`);
 
-export const deletePost = async (id) => fetchHandler(`${baseUrl}/${id}`, deleteOptions);
+export const deletePost = async (id, post_id) => fetchHandler(`${baseUrl}/${id}`, deleteOptions);
