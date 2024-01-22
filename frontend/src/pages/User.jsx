@@ -66,6 +66,10 @@ export default function UserPage() {
       event.target.reset();
     }
   };
+  const handleDelete = async (post) => {
+    console.log("I am trying to delete this post", post);
+
+  }
 
   return (
     <>
@@ -73,11 +77,10 @@ export default function UserPage() {
       {!!isCurrentUserProfile && (
         <button onClick={handleLogout}>Log Out</button>
       )}
-      <p>If the user had any data, here it would be</p>
       <p>Fake Bio or something</p>
 
       <ul>
-      {posts.map((post) => (
+        {posts.map((post) => (
           <li key={post.id}>
             <p>{post.username}</p>
             <p>Created at: {post.created_at}</p>
@@ -85,31 +88,45 @@ export default function UserPage() {
               <img
                 src={post.image_url}
                 alt={`Post Image for ${post.id}`}
-                style={{ width: '200px', height: '250px', objectFit: 'cover' }}
+                style={{ width: "200px", height: "250px", objectFit: "cover" }}
               />
             )}
             <p>{post.text}</p>
+            {!!isCurrentUserProfile && (
+              <>
+                <button onClick={() => console.log("edit post", post)}>Edit</button>
+                <button onClick={handleDelete}>
+                  Delete
+                </button>
+              </>
+            )}
+            
           </li>
         ))}
       </ul>
 
-      <form onSubmit={handleSubmit} aria-labelledby="input-text">
+      
+
+      {!!isCurrentUserProfile && (
+        <>
+        <form onSubmit={handleSubmit} aria-labelledby="input-text">
         <h2 id="input-heading">Create a new post:</h2>
 
-        <label htmlFor="url">Input URL here:</label>
-        <input type="url" autoComplete="url" id="url" name="url" />
+        <label htmlFor="url">Image URL:</label>
+        <input type="url" autoComplete="url" id="url" name="url" required/>
 
-        <label htmlFor="text">Type here</label>
+        <label htmlFor="text">Caption:</label>
         <input type="text" autoComplete="text" id="text" name="text" />
 
         <button>post</button>
       </form>
 
-      {!!isCurrentUserProfile && (
+
         <UpdateUsernameForm
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
         />
+        </>
       )}
     </>
   );

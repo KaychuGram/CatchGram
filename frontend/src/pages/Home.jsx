@@ -26,7 +26,7 @@ export default function HomePage() {
   return (
     <>
       <h1>Home</h1>
-      <p>Put something interesting here!</p>
+      <p>See what your friends have been up to!</p>
 
       <ul>
         {posts.map((post) => (

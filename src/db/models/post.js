@@ -15,7 +15,7 @@ class Post {
       const args = [id];
       const { rows } = await knex.raw(query, args);
       const post = rows;
-      return post
+      return post;
     } catch (error) {
       console.error(error);
       return null;
@@ -38,6 +38,19 @@ class Post {
   static async deleteAll() {
     return knex.raw("TRUNCATE posts RESTART IDENTITY CASCADE;");
   }
+  deletePost = async(id) => {
+    try {
+      const query = "DELETE FROM posts WHERE id = ?";
+      const args = [id];
+      const { rows } = await knex.raw(query, args);
+      return rows;
+    } catch (error){
+      console.error(error);
+      return null;
+    }
+    
+  }
+  updatePost = async (id) => {};
 }
 
 module.exports = Post;
