@@ -28,7 +28,7 @@ export default function HomePage() {
       <h1>Home</h1>
       <p>See what your friends have been up to!</p>
 
-      <ul id="friends-posts">
+      <ul className="post-container">
         {posts.map((post) => (
           <li key={post.id}>
             <p>{post.username}</p>
@@ -37,7 +37,7 @@ export default function HomePage() {
               <img
                 src={post.image_url}
                 alt={`Post Image for ${post.id}`}
-                style={{ width: '200px', height: '250px', objectFit: 'cover' }}
+                style={{ width: "200px", height: "250px", objectFit: "cover" }}
               />
             )}
             <p>{post.text}</p>

@@ -79,7 +79,7 @@ export default function UserPage() {
       )}
       <p>Fake Bio or something</p>
 
-      <ul>
+      <ul className="post-container">
         {posts.map((post) => (
           <li key={post.id}>
             <p>{post.username}</p>

@@ -54,18 +54,32 @@ nav a {
   font-style: italic;
 }
 
-#friends-posts {
+.post-container {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
   margin-top: 60px;
 }
-#friends-posts li:hover {
+.post-container li:hover {
   cursor: pointer;
 }
-#friends-posts li {
+.post-container li {
   background-color: rgb(234, 102, 124);
   text-align: center;
   border-radius: 15px;
+  padding: 20px;
+  max-width: 300px
+}
+.post-container button {
+  margin: 0px 15px;
+}
+button {
+  background-color: rgb(255, 223, 228);
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 2px solid rgb(234, 102, 124);
+}
+button:hover {
+  cursor: pointer;
 }
