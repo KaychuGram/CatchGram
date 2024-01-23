@@ -4,7 +4,7 @@ import CurrentUserContext from "../contexts/current-user-context";
 import { getUser } from "../adapters/user-adapter";
 import { logUserOut } from "../adapters/auth-adapter";
 import UpdateUsernameForm from "../components/UpdateUsernameForm";
-import { createPost, getUserPost } from "../adapters/post-adapter";
+import { createPost, getUserPost, deletePost } from "../adapters/post-adapter";
 
 export default function UserPage() {
   const navigate = useNavigate();
@@ -32,6 +32,8 @@ export default function UserPage() {
     };
     loadPost();
   }, [id]);
+
+  
 
   const handleLogout = async () => {
     logUserOut();
@@ -65,6 +67,17 @@ export default function UserPage() {
       setPosts((prevPosts) => [...prevPosts, post]);
       event.target.reset();
     }
+  };
+
+  const handleDelete = async (id) => {
+    console.log("I am trying to delete this post", id);
+    await deletePost(id);
+    // const [post, error] = await deletePost(id);
+    console.log(await deletePost(id));
+    // return error ? error : target.element.parent.remove();
+    // alert(
+    //   "You thought this button did something huh😂 Too bad, your post is on the web forever!"
+    // );
   };
 
   return (
@@ -103,10 +116,7 @@ export default function UserPage() {
                   Edit
                 </button>
                 <button
-                  onClick={async () => {
-                    console.log("I am trying to delete this post", post);
-                    alert("You thought this button did something huh😂 Too bad, your post is on the web forever!")
-                  }}
+                  onClick={handleDelete}
                 >
                   Delete
                 </button>
