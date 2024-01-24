@@ -31,8 +31,8 @@ export default function HomePage() {
       <ul className="post-container">
         {posts.map((post) => (
           <li key={post.id}>
+            <h4>User {post.user_id}</h4>
             <p>{post.username}</p>
-            <p>Created at: {post.created_at}</p>
             {post.image_url && (
               <img
                 src={post.image_url}
@@ -41,6 +41,9 @@ export default function HomePage() {
               />
             )}
             <p>{post.text}</p>
+            <p style={{ color: "rgb(46, 41, 44)", fontSize: "13px" }}>
+              Created at: {post.created_at.substring(0,10)}
+            </p>
           </li>
         ))}
       </ul>

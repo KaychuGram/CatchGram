@@ -75,9 +75,9 @@ export default function UserPage() {
     // const [post, error] = await deletePost(id);
     console.log(await deletePost(id));
     // return error ? error : target.element.parent.remove();
-    // alert(
-    //   "You thought this button did something huh😂 Too bad, your post is on the web forever!"
-    // );
+    alert(
+      "You thought this button did something huh😂 Too bad, your post is on the web forever!"
+    );
   };
 
   return (
